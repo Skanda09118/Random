@@ -57,27 +57,64 @@ No existing TIM formulation simultaneously satisfies all four requirements. Ther
 
 SiC power module thermal management sits at the intersection of three separately mature but not yet combined research threads: (i) advanced packaging and substrate-level cooling, (ii) microchannel and embedded cooling architectures, and (iii) thermal interface material reliability. The following review summarises the key sources establishing all three threads and the gap between them.
 
-### 2.1 Embedded and Substrate-Level Microchannel Cooling
+### 2.1 Embedded and Substrate-Level Microchannel Cooling in SiC
 
-**van Erp, R., Kampitsis, G., Nela, L., et al. (2020) — Embedded Microchannel Cooling for High Power-Density GaN-on-Si Power Integrated Circuits (IEEE)**
+**Bar-Cohen, A., Maurer, J. J., and Felbinger, J. G. (2013) — DARPA's Intra/Interchip Enhanced Cooling (ICECool) Program (CS MANTECH Conference, pp. 171–174)**
 
-Demonstrated cooling directly through microchannels etched into the backside of the Si substrate beneath GaN-on-Si power ICs, turning the substrate itself into the heat sink and removing the TIM from the thermal path. A proof-of-concept full-wave bridge rectifier cooled a device-level heat flux of 417 W/cm² using only 60 mW of pumping power.
+Presented the foundational programme that funded multiple teams (Lockheed Martin, Raytheon, Georgia Tech, Stanford) to develop embedded thermal management for high-power-density electronics, moving cooling from remote heat sinks to within the chip or substrate itself. A primary focus was etching microchannels directly into **SiC substrates** beneath GaN-on-SiC RF power amplifiers, using manifold-microchannel architectures to direct dielectric coolant flow to near-junction hotspots. The programme demonstrated heat flux handling exceeding **1 kW/cm²**, significant reductions in thermal resistance, and substantial increases in RF output power that had previously been derated due to thermal limits.
 
-> **Contribution:** Established substrate-embedded microchannel cooling as a mature, published approach that eliminates the TIM entirely, and is the origin research line behind the company Corintis. However, this approach requires wafer-level co-design and is not applicable to packaged SiC modules purchased off the shelf.
+> **Contribution:** Established substrate-embedded microchannel cooling in SiC as a proven, experimentally validated approach for near-junction thermal management. However, ICECool required wafer-level co-fabrication — channels were etched into the SiC substrate *before* device packaging — making this approach available only to chip manufacturers, not to system integrators purchasing packaged SiC power modules.
 
-**van Erp, R., et al. (2020) — Bringing the Heat Sink Closer to the Heat: Evaluating Die-Embedded Microchannel Cooling of GaN-on-Si Power Devices (THERMINIC)**
+**Lu, D., Ye, Y., et al. (2024) — Near-Junction Thermal Management of GaN-on-SiC MMIC Power Amplifier Through Substrate Embedded Microchannel (IEEE Transactions on Electron Devices, DOI: 10.1109/TED.2023.3338586)**
 
-Presented cooling strategies with microchannels embedded directly inside semiconductor dies, extracting higher heat fluxes while substantially reducing pumping power compared to remote heat sinks.
+Investigated an embedded microchannel cooling approach for GaN-on-SiC monolithic microwave integrated circuit (MMIC) power amplifiers by integrating microchannels directly into the SiC substrate using ICP-RIE etching. SiC is exceptionally hard (Mohs ~9.5) and chemically inert, requiring specialised DRIE processes with nickel hard masks (etch selectivity 45:1 to 100:1) and time-multiplexed etch-passivate (TMEP) techniques achieving aspect ratios exceeding 13:1. The study demonstrated effective mitigation of self-heating effects and reduced thermal coupling between transistors.
 
-> **Contribution:** Confirmed die-level channel embedding as a further extension of the substrate-embedded approach. Neither this work nor the preceding one has been demonstrated for SiC substrates, where the much higher hardness and chemical inertness of SiC make backside etching significantly more challenging.
+> **Contribution:** Provided the first journal-published demonstration of substrate-embedded microchannel cooling specifically for GaN-on-SiC power amplifiers, confirming that while microchannel fabrication in SiC is technically feasible, it requires specialised plasma etching equipment and process expertise unavailable in standard packaging environments. This fabrication barrier is a key reason why embedded-in-SiC cooling remains a wafer-foundry capability, not a system-integrator option.
 
-**Thermal Property Evaluation of a 2.5D Integration Method with Device Level Microchannel Direct Cooling for a High-Power GaN HEMT Device (PMC, 2022)**
+**Kang, M., Jung, H.-W., and Park, J. (2025) — Thermal Design and Fabrication of Embedded Liquid Cooling for Gallium Nitride High Electron Mobility Transistor Devices (Applied Science and Convergence Technology)**
 
-Used a high-resistivity silicon interposer embedded with four-layer microchannels beneath a GaN HEMT device, reaching a maximum surface temperature of 93.8 °C at a gate-finger heat dissipation density of 32 kW/cm² with DI water coolant.
+Performed computational analysis to optimise SiC substrate thickness and microchannel width (50, 100, and 200 µm) for manifold microchannel structures embedded in SiC substrates, and validated the design through inductively coupled plasma (ICP) etching. Demonstrated the design-to-fabrication workflow for embedded cooling in SiC.
 
-> **Contribution:** Quantified how close coolant must get to the heat source to be effective at extreme heat flux densities, directly motivating the bond-line-thickness question this project investigates for SiC-relevant conditions.
+> **Contribution:** Provided a recent, complete design-through-fabrication case study for SiC-embedded microchannels, including the parametric optimisation methodology that this project adapts for the fluidic-embedded TIM geometry.
 
-### 2.2 SiC-Specific Thermal Management and Packaging
+**High Power Density Double-Sided Cooled SiC Power Module with Embedded Liquid-Cooled Microcooler (IEEE APEC 2026, DOI: 10.1109/APEC51134.2026.11517173)**
+
+Presented a 1.2 kV, 2.2 mΩ half-bridge SiC power module utilising laser-cut, co-sintered µ-Coolers integrated directly into DBC substrates. The design eliminates thermal interface materials (TIMs), achieving very low junction-to-coolant thermal resistance for automotive traction applications.
+
+> **Contribution:** Represents the current state-of-the-art for embedded cooling of SiC power modules, but still requires co-design at the module manufacturing stage — the cooling channels are built into the DBC substrate during module assembly, not retrofittable to existing packaged modules.
+
+**Fu, Y., Shan, G., Zhang, X., Zhao, L., and Yang, Y. (2025) — Design and Fabrication of Embedded Microchannel Cooling Solutions for High-Power-Density Semiconductor Devices (Micromachines, 16(8), 908; DOI: 10.3390/mi16080908)**
+
+Utilised finite element analysis to simulate thermo-fluid-structure interactions in micropillar arrays, and fabricated multilayer microstructures using DRIE, surface functionalisation, and Au-Sn eutectic bonding. Experimental testing demonstrated heat flux handling of up to **1,200 W/cm²** with effective thermal performance. Separately, SiC microchannel heat sinks have been shown to dissipate up to 1 kW/cm² over 0.25 cm² footprints, achieving thermal resistance as low as **0.024 cm²·°C/W**.
+
+> **Contribution:** Established the performance ceiling for embedded-in-SiC cooling — these are the numbers a fluidic-embedded TIM would need to approach to be competitive at the die level. However, at the *module-to-heatsink* interface (where the fluidic TIM sits), heat flux is spread over the baseplate area and is an order of magnitude lower, making the comparison regime fundamentally different.
+### 2.2 Non-Embedded Microfluidic and Advanced Liquid Cooling for SiC
+
+**Barua, H., Chowdhury, M. S., Wilkins, J. P., and Ozpineci, B. (2023) — Single-Phase Jet Impingement Cooling for a Power-Dense Silicon Carbide Power Module (ORNL / IEEE)**
+
+Proposed embedding pin fins directly into the DBC substrate of SiC power modules using laser powder bed fusion (additive manufacturing) combined with single-phase jet impingement cooling. Compared the design against traditional soldered folded fins and benchmarked against commercial EV cooling systems (e.g., BMW i3), demonstrating a **75% reduction in specific thermal resistance** without increasing pressure drop. A follow-up study at IEEE WiPDA 2023 extended the analysis to double-sided jet impingement configurations.
+
+> **Contribution:** Demonstrated that jet impingement directly onto SiC module DBC substrates can dramatically outperform conventional cold plates. However, this approach still requires a separate microfluidic manifold assembly mounted to the module — the TIM between module and manifold remains a critical interface. The fluidic-embedded TIM concept aims to integrate the coolant channels *into* this TIM layer itself.
+
+**Biglo, A. H., et al. (2024) — Two-Phase Cooling Solution for SiC/GaN Power Modules (IEEE ICDCM, DOI: 10.1109/ICDCM60322.2024.10664668)**
+
+Investigated an integrated porous mini-channel cold plate designed for two-phase (flow boiling) cooling of SiC and GaN power modules. The porous channel walls leverage capillary forces to improve liquid distribution and phase-change heat transfer, achieving a **30.5 °C reduction in junction temperature** compared to conventional cold plates and superior thermal performance at lower pumping powers.
+
+> **Contribution:** Confirmed that two-phase cooling offers significant thermal performance gains over single-phase approaches for SiC modules. However, the porous mini-channel cold plate is still a separate component requiring a TIM at the module interface — reinforcing the motivation for a fluidic-embedded TIM that could incorporate two-phase flow within the interface layer itself.
+
+**Hybrid Microchannel and Jet Impingement Heat Sinks for High-Power Electronics (MDPI, 2022)**
+
+Experimentally studied hybrid cooling architectures combining microchannels and jet impingement for high-power electronics, achieving heat dissipation rates up to **400 W/cm²**. The study quantified the tradeoffs between jet spacing, channel geometry, and pressure drop.
+
+> **Contribution:** Established that hybrid cooling architectures can achieve performance intermediate between pure microchannel and pure jet impingement designs, providing a design reference for the fluidic-embedded TIM's internal channel geometry.
+
+**Direct Immersion Cooling of SiC Power Modules in Dielectric Fluids (multiple groups, 2023–2025)**
+
+Multiple research groups have evaluated immersion cooling of SiC devices in dielectric fluids, effectively replacing heat spreaders and TIMs by submerging the entire module. While effective, immersion cooling requires system-level redesign and is primarily targeted at data centre and stationary applications, not the space-constrained enclosures of EV traction inverters or defence power converters.
+
+> **Contribution:** Confirmed that while immersion cooling eliminates the TIM entirely, it is not applicable to the space- and weight-constrained environments where SiC power modules are most critically needed (automotive, defence). The fluidic-embedded TIM concept offers active cooling within the existing form factor.
+
+### 2.3 SiC-Specific Thermal Management and Packaging
 
 **Thermal Management of Wide-Bandgap Power Semiconductors: Strategies and Challenges in SiC and GaN Power Devices (MDPI Electronics, 2025)**
 
@@ -97,7 +134,7 @@ Research validates the superior thermal fatigue resistance of sintered silver ve
 
 > **Contribution:** Established that while die-attach reliability is improving through advanced materials (Ag sintering), this shifts the weakest thermal link outward—to the TIM between baseplate and heat sink—precisely the interface this project targets.
 
-### 2.3 TIM Reliability and Advanced TIM Concepts
+### 2.4 TIM Reliability and Advanced TIM Concepts
 
 **Nagrani, P. P., and Marconnet, A. M. (2026) — A New Accelerated Method to Characterize Degradation of Thermal Interface Materials (ASME)**
 
@@ -117,7 +154,7 @@ Startups and research labs are creating soft, stretchable polymers embedded with
 
 > **Contribution:** Confirmed industry interest in hybrid TIM architectures that combine fluidic and structural elements, validating the general design philosophy of this project.
 
-### 2.4 Microfluidic Cooling Industry Landscape
+### 2.5 Microfluidic Cooling Industry Landscape
 
 **Corintis Series A Funding and Microsoft Microfluidic Cooling Collaboration (Data Center Dynamics, 2025)**
 
@@ -131,7 +168,7 @@ Described a thermal management stack in which a microfluidic device sits on top 
 
 > **Contribution:** Confirmed that the specific concept of a single sealed fluidic TIM material, rather than a TIM-plus-separate-microfluidic-device stack, has not been claimed as prior art in this search.
 
-### 2.5 India's SiC Ecosystem and Defence Context
+### 2.6 India's SiC Ecosystem and Defence Context
 
 **DRDO Indigenous SiC Wafer and GaN HEMT Development (PIB, 2025)**
 
@@ -145,7 +182,7 @@ iDEX continues to act as a link between startups, MSMEs, and the military, with 
 
 > **Contribution:** Confirmed a viable funding and adoption pathway for SiC thermal management innovations targeting defence applications in India.
 
-### 2.6 Fabrication Access Routes
+### 2.7 Fabrication Access Routes
 
 **Indian Nanoelectronics Users Programme (INUP-i2i)**
 
@@ -167,20 +204,21 @@ Offers complementary fabrication capabilities accessible through the same INUP-i
 
 ## 3. Literature Gap
 
-The reviewed literature provides extensive, mature coverage of three separate threads:
+The reviewed literature provides extensive, mature coverage of four separate threads:
 
-1. **Substrate- and die-embedded microchannel cooling** for wide-bandgap devices (the EPFL/Corintis line)
-2. **Advanced SiC module packaging** including double-sided cooling, silver sintering, and CTE-matched substrates
-3. **TIM reliability** including pump-out/dry-out characterisation and emerging composite designs (LINC, LM-polymer hybrids)
+1. **Substrate- and die-embedded microchannel cooling directly in SiC** — from DARPA ICECool through to current µ-Cooler and micropillar architectures, demonstrating heat flux handling up to 1,200 W/cm² with thermal resistances as low as 0.024 cm²·°C/W
+2. **SiC microchannel etching processes** — ICP-RIE/DRIE with Ni hard masks, TMEP (Bosch-like) processes achieving >13:1 aspect ratios, and femtosecond laser alternatives
+3. **Advanced SiC module packaging** — double-sided cooling, silver sintering die-attach, and CTE-matched substrates
+4. **TIM reliability** — pump-out/dry-out characterisation and emerging composite designs (LINC, LM-polymer hybrids)
 
-However:
+However, a critical insertion-point gap remains:
 
-- The **embedded-cooling literature** removes the TIM entirely by co-designing channels into the die or substrate—an approach requiring wafer-level access unavailable to integrators buying discrete SiC power modules off the shelf.
-- The **advanced packaging literature** improves internal module thermal resistance but still requires a high-performance, reliable TIM at the module-to-heatsink interface.
+- The **embedded-in-SiC cooling literature** (DARPA ICECool, µ-Coolers, micropillar arrays) eliminates the TIM entirely by co-fabricating channels into the SiC substrate or DBC stack *during wafer processing or module assembly*. This approach is available only to chip/module manufacturers (Wolfspeed, Infineon, ROHM) — **not to system integrators** who purchase packaged SiC power modules off the shelf for EV traction inverters or defence power converters and cannot modify the die, substrate, or module internals.
+- The **advanced packaging literature** improves internal module thermal resistance but still requires a high-performance, reliable TIM at the module-to-heatsink interface — precisely the interface that embedded-in-SiC cooling does not reach.
 - The **TIM reliability literature** and recent composite designs address pump-out resistance but do not carry active coolant flow within the TIM itself.
-- The **microfluidic industry** targets large-die, uniform-flux data centre workloads, not the small-die, high-temperature, CTE-mismatch-limited, transient-heavy profile of SiC power modules.
+- The **microfluidic industry** (Corintis, Jetcool) targets large-die, uniform-flux data centre workloads, not the small-die, high-temperature, CTE-mismatch-limited, transient-heavy profile of SiC power modules.
 
-**No source reviewed demonstrates a single, sealed fluidic-channel TIM material combining both functions, nor quantifies the bond-line-thickness-versus-channel-geometry tradeoff that determines whether such a material could outperform the standard TIM-plus-separate-coldplate stack under SiC-relevant operating conditions.** This project addresses that specific, narrow gap.
+**No source reviewed demonstrates a single, sealed fluidic-channel TIM material designed for the post-packaging interface (module baseplate → heat sink), nor quantifies the bond-line-thickness-versus-channel-geometry tradeoff that determines whether such a material could outperform the standard TIM-plus-separate-coldplate stack under SiC-relevant operating conditions.** Embedded-in-SiC cooling solves the problem at the wafer level; this project addresses the same thermal bottleneck at the *system-integration* level, where the module is a fixed, purchased component.
 
 ---
 
@@ -388,52 +426,61 @@ The **filled silicone elastomer** and **metal-filled polymer composite** routes 
 
 ## 12. References
 
-1. van Erp, R., Kampitsis, G., Nela, L., et al. (2020). Embedded Microchannel Cooling for High Power-Density GaN-on-Si Power Integrated Circuits. *IEEE*.
-   [https://ieeexplore.ieee.org/document/9190356](https://ieeexplore.ieee.org/document/9190356)
+1. Bar-Cohen, A., Maurer, J. J., and Felbinger, J. G. (2013). DARPA's Intra/Interchip Enhanced Cooling (ICECool) Program. *CS MANTECH Conference*, pp. 171–174, New Orleans, LA.
 
-2. van Erp, R., Kampitsis, G., Nela, L., et al. (2020). Bringing the Heat Sink Closer to the Heat: Evaluating Die-Embedded Microchannel Cooling of GaN-on-Si Power Devices. *THERMINIC*.
-   [https://ieeexplore.ieee.org/iel7/9420452/9420488/09420501.pdf](https://ieeexplore.ieee.org/iel7/9420452/9420488/09420501.pdf)
+2. Lu, D., Ye, Y., et al. (2024). Near-Junction Thermal Management of GaN-on-SiC MMIC Power Amplifier Through Substrate Embedded Microchannel. *IEEE Transactions on Electron Devices*.
+   [https://doi.org/10.1109/TED.2023.3338586](https://doi.org/10.1109/TED.2023.3338586)
 
-3. (2022). Thermal property evaluation of a 2.5D integration method with device level microchannel direct cooling for a high-power GaN HEMT device. *PMC*.
-   [https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9649738/](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9649738/)
+3. Kang, M., Jung, H.-W., and Park, J. (2025). Thermal Design and Fabrication of Embedded Liquid Cooling for Gallium Nitride High Electron Mobility Transistor Devices. *Applied Science and Convergence Technology*.
 
-4. (2025). Thermal Management of Wide-Bandgap Power Semiconductors: Strategies and Challenges in SiC and GaN Power Devices. *MDPI Electronics*.
+4. (2026). High Power Density Double-Sided Cooled SiC Power Module with Embedded Liquid-Cooled Microcooler. *IEEE Applied Power Electronics Conference and Exposition (APEC)*.
+   [https://doi.org/10.1109/APEC51134.2026.11517173](https://doi.org/10.1109/APEC51134.2026.11517173)
+
+5. Fu, Y., Shan, G., Zhang, X., Zhao, L., and Yang, Y. (2025). Design and Fabrication of Embedded Microchannel Cooling Solutions for High-Power-Density Semiconductor Devices. *Micromachines*, 16(8), 908.
+   [https://doi.org/10.3390/mi16080908](https://doi.org/10.3390/mi16080908)
+
+6. Barua, H., Chowdhury, M. S., Wilkins, J. P., and Ozpineci, B. (2023). Single-Phase Jet Impingement Cooling for a Power-Dense Silicon Carbide Power Module. *Oak Ridge National Laboratory / IEEE*.
+
+7. Biglo, A. H., et al. (2024). Two-Phase Cooling Solution for SiC/GaN Power Modules. *IEEE Sixth International Conference on DC Microgrids (ICDCM)*.
+   [https://doi.org/10.1109/ICDCM60322.2024.10664668](https://doi.org/10.1109/ICDCM60322.2024.10664668)
+
+8. (2025). Thermal Management of Wide-Bandgap Power Semiconductors: Strategies and Challenges in SiC and GaN Power Devices. *MDPI Electronics*.
    [https://www.mdpi.com/2079-9292/14/21/4193](https://www.mdpi.com/2079-9292/14/21/4193)
 
-5. Nagrani, P. P., and Marconnet, A. M. (2026). A New Accelerated Method to Characterize Degradation of Thermal Interface Materials. *ASME J. Heat Mass Transfer*, 148(2): 021402.
+9. Nagrani, P. P., and Marconnet, A. M. (2026). A New Accelerated Method to Characterize Degradation of Thermal Interface Materials. *ASME J. Heat Mass Transfer*, 148(2): 021402.
    [https://doi.org/10.1115/1.4070174](https://doi.org/10.1115/1.4070174)
 
-6. Cheng, R., Wang, Q., Wang, Z., et al. (2025). Liquid-infused nanostructured composite as a high-performance thermal interface material for effective cooling. *Nature Communications*, 16, 794.
-   [https://doi.org/10.1038/s41467-025-56163-8](https://doi.org/10.1038/s41467-025-56163-8)
+10. Cheng, R., Wang, Q., Wang, Z., et al. (2025). Liquid-infused nanostructured composite as a high-performance thermal interface material for effective cooling. *Nature Communications*, 16, 794.
+    [https://doi.org/10.1038/s41467-025-56163-8](https://doi.org/10.1038/s41467-025-56163-8)
 
-7. US Patent. Modular microchannel thermal solutions for integrated circuit devices. *USPTO*.
-   [https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12199012](https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12199012)
+11. US Patent. Modular microchannel thermal solutions for integrated circuit devices. *USPTO*.
+    [https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12199012](https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12199012)
 
-8. Data Center Dynamics (2025). Corintis raises $24m to support development of microfluidic cooling systems.
-   [https://www.datacenterdynamics.com/en/news/corintis-raises-24m-to-support-development-of-microfluidic-cooling-systems/](https://www.datacenterdynamics.com/en/news/corintis-raises-24m-to-support-development-of-microfluidic-cooling-systems/)
+12. Data Center Dynamics (2025). Corintis raises $24m to support development of microfluidic cooling systems.
+    [https://www.datacenterdynamics.com/en/news/corintis-raises-24m-to-support-development-of-microfluidic-cooling-systems/](https://www.datacenterdynamics.com/en/news/corintis-raises-24m-to-support-development-of-microfluidic-cooling-systems/)
 
-9. DRDO (2025). Indigenous development of SiC wafers and GaN HEMTs for defence applications. *Press Information Bureau, Government of India*.
-   [https://pib.gov.in](https://pib.gov.in)
+13. DRDO (2025). Indigenous development of SiC wafers and GaN HEMTs for defence applications. *Press Information Bureau, Government of India*.
+    [https://pib.gov.in](https://pib.gov.in)
 
-10. iDEX — Innovations for Defence Excellence, Ministry of Defence, Government of India.
+14. iDEX — Innovations for Defence Excellence, Ministry of Defence, Government of India.
     [https://idex.gov.in](https://idex.gov.in)
 
-11. INUP-i2i — Indian Nanoelectronics Users Programme, MeitY.
+15. INUP-i2i — Indian Nanoelectronics Users Programme, MeitY.
     [https://www.inup-i2i.in/](https://www.inup-i2i.in/)
 
-12. CeNSE, IISc Bengaluru. National Nanofabrication Centre (NNFC).
+16. CeNSE, IISc Bengaluru. National Nanofabrication Centre (NNFC).
     [https://nnfc.cense.iisc.ac.in/](https://nnfc.cense.iisc.ac.in/)
 
-13. IIT Bombay Nanofabrication Facility (IITBNF).
+17. IIT Bombay Nanofabrication Facility (IITBNF).
     [https://www.iitb.ac.in/en/research-highlight/nanofabrication-facility](https://www.iitb.ac.in/en/research-highlight/nanofabrication-facility)
 
-14. (2024). Mechanical Characterization of Sintered Silver Materials for Power Device Packaging: A Review. *MDPI Materials*.
+18. (2024). Mechanical Characterization of Sintered Silver Materials for Power Device Packaging: A Review. *MDPI Materials*.
 
-15. (2024). High-Pressure-Assisted Large-Area Sintered-Silver Substrate Bonding for SiC Power Module Packaging. *MDPI Energies*.
+19. (2024). High-Pressure-Assisted Large-Area Sintered-Silver Substrate Bonding for SiC Power Module Packaging. *MDPI Energies*.
 
-16. (2025). Reliability Perspective on Nano-silver Sintering in SiC Power Modules for Space Applications. *SciOpen*.
+20. (2025). Reliability Perspective on Nano-silver Sintering in SiC Power Modules for Space Applications. *SciOpen*.
 
-17. SiCrystal GmbH (ROHM Group). 4H-SiC Substrate Material Properties.
+21. SiCrystal GmbH (ROHM Group). 4H-SiC Substrate Material Properties.
     [https://www.sicrystal.de](https://www.sicrystal.de)
 
 ---
